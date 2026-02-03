@@ -1,0 +1,99 @@
+/* ===============================
+   VIDEO MODAL (LOCKED PLAYER)
+   =============================== */
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark background */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Main container */
+.video-container {
+  position: relative;
+  width: 90%;
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 0 0 60px rgba(0, 255, 180, 0.15);
+  animation: modalZoom 0.25s ease;
+}
+
+@keyframes modalZoom {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Iframe & video */
+.video-container iframe,
+.video-container video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
+}
+
+/* Wrapper for iframe blocking */
+.video-frame-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* CLICK BLOCKER — prevents YouTube redirect */
+.iframe-blocker {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: all;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* Disable text selection */
+.video-modal * {
+  user-select: none;
+}

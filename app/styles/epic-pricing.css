@@ -1,0 +1,121 @@
+:root {
+  --black: #000;
+  --white: #fff;
+  --gray: #1a1a1a;
+  --muted: #9a9a9a;
+}
+
+/* WRAPPER */
+.pricing-wrapper {
+  background: var(--black);
+  color: var(--white);
+  content-visibility: auto;
+  contain: layout paint style;
+}
+
+/* LAYOUT */
+.pricing-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 140px 5vw;
+}
+
+/* HEADER */
+.pricing-subhead {
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.pricing-title {
+  font-size: clamp(3rem, 9vw, 6rem);
+  font-weight: 900;
+  margin: 32px 0 48px;
+}
+
+/* NOTICE */
+.pricing-notice {
+  border-left: 3px solid #3b82f6;
+  padding-left: 18px;
+  max-width: 900px;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #d1d1d1;
+  margin-bottom: 80px;
+}
+
+/* GRID */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--gray);
+}
+
+/* CARD */
+.pricing-card {
+  background: var(--black);
+  padding: 40px;
+  min-height: 320px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+}
+
+.pricing-card.featured {
+  outline: 1px solid rgba(255,255,255,0.25);
+}
+
+.pricing-card h3 {
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-card li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+  font-size: 0.95rem;
+  color: #cfcfcf;
+}
+
+.pricing-card li span {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* FOOTER */
+.pricing-footer {
+  margin-top: 80px;
+  font-size: 0.95rem;
+  color: #b5b5b5;
+  border-left: 2px solid #2a2a2a;
+  padding-left: 20px;
+  max-width: 720px;
+}
+
+/* REVEAL */
+.price-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.price-reveal.price-active {
+  opacity: 1;
+  transform: translateY(0);
+}

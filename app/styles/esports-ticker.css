@@ -1,0 +1,65 @@
+/* ===============================
+   ESPORTS TICKER WRAPPER
+================================ */
+
+.esports-ticker {
+  width: 100%;
+  overflow: hidden;
+  background: #07070c; /* deep black */
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 0;
+}
+
+/* ===============================
+   MOVING TRACK
+================================ */
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+
+  /* FAST, NO DELAY */
+  animation: ticker-scroll 14s linear infinite;
+  will-change: transform;
+}
+
+/* ===============================
+   TEXT ITEM
+================================ */
+
+.ticker-text {
+  color: #cfd6ff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+
+  /* MEDIUM GAP (not too close, not too far) */
+  margin-right: 36px;
+
+  opacity: 0.85;
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===============================
+   OPTIONAL HOVER EFFECT
+================================ */
+
+.ticker-text:hover {
+  opacity: 1;
+  color: #ffffff;
+}

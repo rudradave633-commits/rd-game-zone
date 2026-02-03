@@ -1,0 +1,173 @@
+/* ===============================
+   GAME LIBRARY PAGE (MASTER)
+================================ */
+
+.game-library-page {
+  padding: 32px 48px;
+  padding-top: 96px;
+  color: #fff;
+  background: #000;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.library-header {
+  margin-bottom: 36px;
+}
+
+.library-title {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  margin-bottom: 22px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* ===============================
+   CONTROLS BAR
+================================ */
+
+.library-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+  padding: 14px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+}
+
+/* ===============================
+   CATEGORY + STATUS BAR
+================================ */
+
+.category-bar {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  background: rgba(0,0,0,0.55);
+  border-radius: 999px;
+  overflow-x: auto;
+}
+
+.category-btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+
+  transition:
+    color .25s ease,
+    transform .25s ease,
+    background .25s ease;
+}
+
+.category-btn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.category-btn.active {
+  color: #000;
+  background: linear-gradient(135deg, #ffffff, #d7d7d7);
+  box-shadow:
+    0 10px 28px rgba(255,255,255,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+/* ===============================
+   SEARCH BAR
+================================ */
+
+.game-search {
+  flex: 1;
+  min-width: 220px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.game-search::placeholder {
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.08em;
+}
+
+.game-search:focus {
+  background: rgba(255,255,255,0.12);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
+}
+
+/* ===============================
+   GAME GRID
+================================ */
+
+.game-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+
+.game-grid:empty::after {
+  content: "NO GAMES FOUND";
+  grid-column: 1 / -1;
+  text-align: center;
+  opacity: 0.35;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  padding: 80px 0;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+  .game-library-page {
+    padding: 20px;
+    padding-top: 110px;
+  }
+
+  .library-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .library-title {
+    font-size: 42px;
+  }
+}
