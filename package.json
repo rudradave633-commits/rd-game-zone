@@ -4,7 +4,7 @@
   "type": "module",
  "scripts": {
   "dev": "remix dev",
-  "build": "remix build",
+  "build": "npx remix build",
   "start": "remix-serve build"
 },
   "dependencies": {
