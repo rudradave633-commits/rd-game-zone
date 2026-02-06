@@ -3,7 +3,7 @@ import {
 } from "/build/_shared/chunk-O4BRYNJ4.js";
 import {
   RemixBrowser
-} from "/build/_shared/chunk-WC62ZXNT.js";
+} from "/build/_shared/chunk-KVLPYTM2.js";
 import "/build/_shared/chunk-U4FRFQSK.js";
 import {
   require_jsx_dev_runtime
@@ -32,4 +32,4 @@ if (import.meta) {
   lineNumber: 15,
   columnNumber: 23
 }, this));
-//# sourceMappingURL=/build/entry.client-VRHNL23N.js.map
+//# sourceMappingURL=/build/entry.client-DM7PDO2J.js.map

@@ -5,7 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration
-} from "/build/_shared/chunk-WC62ZXNT.js";
+} from "/build/_shared/chunk-KVLPYTM2.js";
 import "/build/_shared/chunk-U4FRFQSK.js";
 import {
   require_jsx_dev_runtime
@@ -699,4 +699,4 @@ export {
   links,
   meta
 };
-//# sourceMappingURL=/build/root-CB65EYPP.js.map
+//# sourceMappingURL=/build/root-GTNAF5M2.js.map
