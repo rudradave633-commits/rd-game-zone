@@ -6,20 +6,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react"
-import globalStyles from "./styles/global.css";
-import epicAbout from "./styles/epic-about.css";
-import epicBooking from "./styles/epic-booking.css";
-import epicPricing from "./styles/epic-pricing.css";
-import esportsTicker from "./styles/esports-ticker.css";
-import footer from "./styles/footer.css";
-import gameCard from "./styles/game-card.css";
-import gameGuidelines from "./styles/game-guidelines.css";
-import gameLibraryPage from "./styles/game-library-page.css";
-import gameLibraryHome from "./styles/GameLibraryHome.css";
-import gtaPolicy from "./styles/gta-online-policy.css";
-import videoModel from "./styles/video-model.css";
 import Navbar from "~/components/Navbar";
-import Experience from "./styles/Experience.css";
+
 
 /* =====================================================
    MAX LEVEL SEO (SSR + CRAWL OPTIMIZED)
@@ -70,20 +58,20 @@ export const links = () => [
   { rel: "icon", href: "/favicon.ico" },
   { rel: "manifest", href: "/manifest.webmanifest" },
 
-  // STYLES
-  { rel: "stylesheet", href: globalStyles },
-  { rel: "stylesheet", href: epicAbout },
-  { rel: "stylesheet", href: epicBooking },
-  { rel: "stylesheet", href: epicPricing },
-  { rel: "stylesheet", href: esportsTicker },
-  { rel: "stylesheet", href: footer },
-  { rel: "stylesheet", href: gameCard },
-  { rel: "stylesheet", href: gameGuidelines },
-  { rel: "stylesheet", href: gameLibraryPage },
-  { rel: "stylesheet", href: gameLibraryHome },
-  { rel: "stylesheet", href: gtaPolicy },
-  { rel: "stylesheet", href: videoModel },
-  { rel: "stylesheet", href: Experience },
+  // STYLES (PUBLIC)
+  { rel: "stylesheet", href: "/styles/global.css" },
+  { rel: "stylesheet", href: "/styles/epic-about.css" },
+  { rel: "stylesheet", href: "/styles/epic-booking.css" },
+  { rel: "stylesheet", href: "/styles/epic-pricing.css" },
+  { rel: "stylesheet", href: "/styles/esports-ticker.css" },
+  { rel: "stylesheet", href: "/styles/footer.css" },
+  { rel: "stylesheet", href: "/styles/game-card.css" },
+  { rel: "stylesheet", href: "/styles/game-guidelines.css" },
+  { rel: "stylesheet", href: "/styles/game-library-page.css" },
+  { rel: "stylesheet", href: "/styles/GameLibraryHome.css" },
+  { rel: "stylesheet", href: "/styles/gta-online-policy.css" },
+  { rel: "stylesheet", href: "/styles/video-model.css" },
+  { rel: "stylesheet", href: "/styles/Experience.css" },
 ];
 /* =====================================================
    ROOT LAYOUT — MAX HARDENED

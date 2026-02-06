@@ -1,4 +1,4 @@
-import "./../styles/game-card.css";
+
 import { FaPlay } from "react-icons/fa";
 import { FaPlaystation, FaDesktop } from "react-icons/fa";
 import type { Game } from "./types";
