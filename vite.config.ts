@@ -1,18 +1,10 @@
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { vitePlugin as remix } from "@remix-run/dev";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
-    remix({
-      serverModuleFormat: "esm",
-    }),
+    remix({ ssr: false }),
     tsconfigPaths(),
   ],
-  build: {
-    target: "esnext",
-  },
-  ssr: {
-    noExternal: true,
-  },
 });
