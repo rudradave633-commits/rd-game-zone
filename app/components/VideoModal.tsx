@@ -1,4 +1,4 @@
-import "./../styles/video-model.css";
+
 import type { VideoSource } from "./types";
 
 type Props = {

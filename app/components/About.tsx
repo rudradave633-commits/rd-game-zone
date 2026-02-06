@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import type React from "react";
-import "../styles/epic-about.css";
 
 const AboutSection: React.FC = () => {
   useEffect(() => {

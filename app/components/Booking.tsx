@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../styles/epic-booking.css";
 
 export default function Booking() {
   const [showNumber, setShowNumber] = useState(false);

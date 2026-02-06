@@ -1,0 +1,73 @@
+/* app/styles/footer.css */
+.rd-footer {
+  background: linear-gradient(180deg, #020202, #000);
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  padding: 48px 64px 32px;
+  color: #ccc;
+  font-family: system-ui, sans-serif;
+}
+.rd-footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 48px;
+}
+.rd-footer-col h3 {
+  color: #fff;
+  letter-spacing: 2px;
+}
+.rd-footer-col h4 {
+  color: #aaa;
+  margin-bottom: 12px;
+}
+.rd-footer-col p,
+.rd-footer-col li {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.rd-footer-col ul {
+  padding-left: 18px;
+}
+.rd-phone {
+  margin-top: 12px;
+}
+.rd-status-box {
+  border: 1px solid rgba(255, 255, 255, .2);
+  padding: 16px;
+  border-radius: 10px;
+  text-align: center;
+}
+.rd-status-box strong {
+  display: block;
+  margin: 6px 0;
+}
+.rd-status-box.open {
+  background: rgba(0, 255, 120, .08);
+  border-color: #00ff7880;
+}
+.rd-status-box.closed {
+  background: rgba(255, 80, 80, .08);
+  border-color: #ff505080;
+}
+.rd-live {
+  margin-top: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.rd-footer-legal {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  font-size: 12px;
+  color: #888;
+}
+.rd-links {
+  margin-top: 10px;
+}
+.rd-links a {
+  margin-right: 18px;
+  color: #aaa;
+  text-decoration: none;
+}
+.rd-links a:hover {
+  color: #fff;
+}

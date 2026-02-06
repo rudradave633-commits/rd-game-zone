@@ -1,26 +1,38 @@
-import type { LinksFunction, MetaFunction } from "react-router";
+
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "react-router";
-
+} from "@remix-run/react"
+import globalStyles from "./styles/global.css";
+import epicAbout from "./styles/epic-about.css";
+import epicBooking from "./styles/epic-booking.css";
+import epicPricing from "./styles/epic-pricing.css";
+import esportsTicker from "./styles/esports-ticker.css";
+import footer from "./styles/footer.css";
+import gameCard from "./styles/game-card.css";
+import gameGuidelines from "./styles/game-guidelines.css";
+import gameLibraryPage from "./styles/game-library-page.css";
+import gameLibraryHome from "./styles/GameLibraryHome.css";
+import gtaPolicy from "./styles/gta-online-policy.css";
+import videoModel from "./styles/video-model.css";
 import Navbar from "~/components/Navbar";
-import "./styles/global.css";
+import Experience from "./styles/Experience.css";
 
 /* =====================================================
    MAX LEVEL SEO (SSR + CRAWL OPTIMIZED)
 ===================================================== */
-export const meta: MetaFunction = () => [
+export const meta = () => [
   { title: "RD Game Zone | Ultimate Gaming Experience" },
   {
     name: "description",
     content:
       "RD Game Zone is a premium gaming hub featuring high-end PCs, PlayStation consoles, esports titles, cinematic gameplay, and immersive gaming ambience.",
   },
-  { name: "viewport", content: "width=device-width, initial-scale=1" },
+  { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+
   { name: "theme-color", content: "#000000" },
 
   /* Crawl budget + ranking */
@@ -45,17 +57,34 @@ export const meta: MetaFunction = () => [
 /* =====================================================
    PERFORMANCE + HARDENING LINKS
 ===================================================== */
-export const links: LinksFunction = () => [
+export const links = () => [
+  // PERFORMANCE
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
   },
+
+  // APP META
   { rel: "icon", href: "/favicon.ico" },
   { rel: "manifest", href: "/manifest.webmanifest" },
-];
 
+  // STYLES
+  { rel: "stylesheet", href: globalStyles },
+  { rel: "stylesheet", href: epicAbout },
+  { rel: "stylesheet", href: epicBooking },
+  { rel: "stylesheet", href: epicPricing },
+  { rel: "stylesheet", href: esportsTicker },
+  { rel: "stylesheet", href: footer },
+  { rel: "stylesheet", href: gameCard },
+  { rel: "stylesheet", href: gameGuidelines },
+  { rel: "stylesheet", href: gameLibraryPage },
+  { rel: "stylesheet", href: gameLibraryHome },
+  { rel: "stylesheet", href: gtaPolicy },
+  { rel: "stylesheet", href: videoModel },
+  { rel: "stylesheet", href: Experience },
+];
 /* =====================================================
    ROOT LAYOUT — MAX HARDENED
 ===================================================== */

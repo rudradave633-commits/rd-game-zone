@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import type React from "react";
-import "../styles/epic-pricing.css";
 
 const Pricing: React.FC = () => {
   useEffect(() => {

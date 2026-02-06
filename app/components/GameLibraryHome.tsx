@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { gameLibrarySlides } from "../data/GameLibraryHomeData";
 import type { GameSlide } from "../data/GameLibraryHomeData";
-import "../styles/GameLibraryHome.css";
-import { Link } from "react-router";
+import { Link } from "@remix-run/react";
 /* PRELOAD IMAGES */
 function preloadImages(slides: GameSlide[]) {
   slides.forEach((s) => {

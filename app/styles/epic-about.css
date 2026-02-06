@@ -5,6 +5,9 @@
   --epic-accent: #d9d9d9;
 }
 
+/* ===============================
+   WRAPPER
+================================ */
 .epic-wrapper {
   background: var(--epic-black);
   color: var(--epic-white);
@@ -13,38 +16,47 @@
   contain: layout paint style;
 }
 
+/* ===============================
+   CONTAINER (FIX GAP FROM HERO)
+================================ */
 .epic-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 140px 5vw;
+  padding: 100px 5vw 120px; /* ⬅ reduced top padding */
 }
 
+/* ===============================
+   TYPOGRAPHY
+================================ */
 .epic-subhead {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: #777;
 }
 
 .epic-headline {
-  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-size: clamp(3.2rem, 10vw, 8rem); /* ⬅ slightly tighter */
   font-weight: 900;
-  line-height: 0.82;
-  letter-spacing: -0.04em;
-  margin: 40px 0;
+  line-height: 0.86; /* ⬅ better optical balance */
+  letter-spacing: -0.035em;
+  margin: 32px 0 36px;
 }
 
 .epic-body {
-  font-size: 1.05rem;
-  line-height: 1.9;
+  font-size: 1rem;
+  line-height: 1.85;
   color: #cfcfcf;
-  max-width: 920px;
+  max-width: 900px;
 }
 
 .epic-body p {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
+/* ===============================
+   HIGHLIGHTS
+================================ */
 .highlight {
   color: #ffffff;
   font-weight: 600;
@@ -60,20 +72,29 @@
   font-weight: 800;
 }
 
+/* ===============================
+   FOOD NOTE
+================================ */
 .food-line {
-  margin-top: 36px;
-  font-size: 0.95rem;
+  margin-top: 28px;
+  font-size: 0.9rem;
   color: #bdbdbd;
   border-left: 2px solid #2a2a2a;
-  padding-left: 18px;
+  padding-left: 16px;
 }
 
+/* ===============================
+   DIVIDER
+================================ */
 .epic-divider {
   height: 1px;
   background: var(--epic-grey);
-  margin: 80px 0;
+  margin: 64px 0; /* ⬅ tighter */
 }
 
+/* ===============================
+   STATS GRID
+================================ */
 .epic-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -82,9 +103,10 @@
 }
 
 .epic-stat-box {
+  position: relative;
   background: var(--epic-black);
-  padding: 48px;
-  height: 280px;
+  padding: 40px; /* ⬅ reduced */
+  height: 240px; /* ⬅ reduced */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -97,9 +119,9 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    600px circle at var(--mx, 50%) var(--my, 50%),
+    520px circle at var(--mx, 50%) var(--my, 50%),
     rgba(255,255,255,0.08),
-    transparent 40%
+    transparent 42%
   );
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -107,7 +129,7 @@
 
 .epic-stat-box:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+  box-shadow: 0 32px 64px rgba(0,0,0,0.7);
 }
 
 .epic-stat-box:hover::before {
@@ -115,20 +137,23 @@
 }
 
 .stat-number {
-  font-size: 4.5rem;
+  font-size: 4rem; /* ⬅ slightly smaller */
   font-weight: 900;
 }
 
 .stat-label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: #777;
 }
 
+/* ===============================
+   FOOTER TEXT
+================================ */
 .epic-footer-text {
-  margin-top: 140px;
-  font-size: clamp(2.2rem, 8vw, 6rem);
+  margin-top: 120px; /* ⬅ reduced */
+  font-size: clamp(2rem, 7vw, 5rem);
   font-weight: 900;
   text-transform: uppercase;
   text-align: center;
@@ -136,6 +161,9 @@
   -webkit-text-stroke: 1px #444;
 }
 
+/* ===============================
+   GLOW
+================================ */
 .glow-text {
   animation: glowPulse 3s ease-in-out infinite;
 }
@@ -145,14 +173,17 @@
     text-shadow: 0 0 0 rgba(255,255,255,0);
   }
   50% {
-    text-shadow: 0 0 18px rgba(255,255,255,0.35);
+    text-shadow: 0 0 16px rgba(255,255,255,0.35);
   }
 }
 
+/* ===============================
+   REVEAL
+================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
 .reveal.reveal-active {

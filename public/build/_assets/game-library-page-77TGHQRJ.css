@@ -1,0 +1,112 @@
+/* app/styles/game-library-page.css */
+.game-library-page {
+  padding: 96px 48px 32px;
+  color: #fff;
+  background: #000;
+}
+.library-header {
+  margin-bottom: 36px;
+}
+.library-title {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 800;
+  letter-spacing: .06em;
+  margin-bottom: 22px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.library-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02));
+  padding: 14px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+}
+.category-bar {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  background: rgba(0, 0, 0, .55);
+  border-radius: 999px;
+  overflow-x: auto;
+}
+.category-btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: transparent;
+  color: #fff9;
+  cursor: pointer;
+  transition:
+    color .25s ease,
+    transform .25s ease,
+    background .25s ease;
+}
+.category-btn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+.category-btn.active {
+  color: #000;
+  background: linear-gradient(135deg, #ffffff, #d7d7d7);
+  box-shadow: 0 10px 28px #ffffff59, inset 0 1px #ffffffe6;
+}
+.game-search {
+  flex: 1;
+  min-width: 220px;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+.game-search::placeholder {
+  color: #ffffff8c;
+  letter-spacing: .08em;
+}
+.game-search:focus {
+  background: rgba(255, 255, 255, .12);
+  border-color: #fff;
+  box-shadow: 0 0 0 2px #ffffff26;
+}
+.game-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+.game-grid:empty:after {
+  content: "NO GAMES FOUND";
+  grid-column: 1 / -1;
+  text-align: center;
+  opacity: .35;
+  font-size: 18px;
+  letter-spacing: .2em;
+  padding: 80px 0;
+}
+@media (max-width: 768px) {
+  .game-library-page {
+    padding: 110px 20px 20px;
+  }
+  .library-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .library-title {
+    font-size: 42px;
+  }
+}

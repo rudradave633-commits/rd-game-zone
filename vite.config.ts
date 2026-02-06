@@ -1,11 +1,18 @@
 import { defineConfig } from "vite";
-import reactRouter from "@react-router/dev/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import tailwindcss from "@tailwindcss/vite";
+import { vitePlugin as remix } from "@remix-run/dev";
 
 export default defineConfig({
   plugins: [
-    tailwindcss(),
+    remix({
+      serverModuleFormat: "esm",
+    }),
     tsconfigPaths(),
   ],
+  build: {
+    target: "esnext",
+  },
+  ssr: {
+    noExternal: true,
+  },
 });

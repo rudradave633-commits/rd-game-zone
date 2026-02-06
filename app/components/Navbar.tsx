@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink } from "@remix-run/react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

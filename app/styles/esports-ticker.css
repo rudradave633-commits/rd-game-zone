@@ -3,12 +3,20 @@
 ================================ */
 
 .esports-ticker {
+  position: relative;
+  z-index: 5;
+
   width: 100%;
   overflow: hidden;
-  background: #07070c; /* deep black */
+
+  background: #07070c;
   border-top: 1px solid rgba(255,255,255,0.06);
   border-bottom: 1px solid rgba(255,255,255,0.06);
+
   padding: 12px 0;
+
+  /* 🔥 VERY IMPORTANT */
+  margin-top: 0;
 }
 
 /* ===============================
@@ -19,6 +27,7 @@
   display: flex;
   align-items: center;
   width: max-content;
+  min-width: 200%;
 
   /* FAST, NO DELAY */
   animation: ticker-scroll 14s linear infinite;
@@ -62,4 +71,15 @@
 .ticker-text:hover {
   opacity: 1;
   color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .ticker-text {
+    font-size: 13px;
+    margin-right: 28px;
+  }
+
+  .esports-ticker {
+    padding: 10px 0;
+  }
 }

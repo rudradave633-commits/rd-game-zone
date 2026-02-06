@@ -1,4 +1,4 @@
-import "../styles/gta-online-policy.css";
+
 
 export default function GTAOnlinePolicy() {
   return (

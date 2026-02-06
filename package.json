@@ -2,32 +2,28 @@
   "name": "rd-game-zone-remix",
   "private": true,
   "type": "module",
-  "scripts": {
-  "dev": "react-router dev",
-  "build": "vite build",
-  "deploy": "wrangler deploy"
+ "scripts": {
+  "dev": "remix dev",
+  "build": "remix build",
+  "start": "remix-serve build"
 },
   "dependencies": {
-    "@react-router/node": "7.12.0",
-    "@react-router/serve": "7.12.0",
     "@remix-run/cloudflare": "2.17.4",
-    "@remix-run/cloudflare-pages": "^2.17.4",
+    "@remix-run/cloudflare-pages": "2.17.4",
     "isbot": "^5.1.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^5.5.0",
-    "react-router": "7.12.0"
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
-    "@react-router/dev": "7.12.0",
+    "@remix-run/dev": "2.17.4",
+    "@remix-run/serve": "^2.17.4",
     "@tailwindcss/vite": "^4.1.13",
-    "@types/node": "^22.0.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@types/react": "18.2.74",
+"@types/react-dom": "18.2.24",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
     "vite": "^5.4.1",
-    "vite-tsconfig-paths": "^5.1.4",
-    "wrangler": "^4.62.0"
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

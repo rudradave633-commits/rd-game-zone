@@ -1,5 +1,3 @@
-import "../styles/esports-ticker.css";
-
 export default function EsportsTicker() {
   // Example list (can scale to 100+ easily)
   const GAMES = [

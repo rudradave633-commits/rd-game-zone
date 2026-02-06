@@ -1,4 +1,4 @@
-import "../styles/game-guidelines.css";
+
 
 const RULES = [
   {

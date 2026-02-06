@@ -1,9 +1,9 @@
-/** @type {import('@remix-run/cloudflare').AppConfig} */
+/** @type {import('@remix-run/dev').AppConfig} */
 export default {
   appDirectory: "app",
-  serverBuildPath: "build/server/index.js",
+  assetsBuildDirectory: "public/build",
   publicPath: "/build/",
-  assetsBuildDirectory: "build/client",
+  serverBuildPath: "build/server.js",
   serverModuleFormat: "esm",
-  serverPlatform: "cloudflare",
+  serverPlatform: "neutral",
 };

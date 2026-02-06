@@ -3,7 +3,6 @@ import GameCard from "./GameCard";
 import VideoModal from "./VideoModal";
 import type { Game } from "./types";
 import { games } from "../data/games";
-import "../styles/game-library-page.css";
 
 const CATEGORIES = [
   "ALL",

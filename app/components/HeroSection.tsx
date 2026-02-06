@@ -64,6 +64,7 @@ const HeroSection: React.FC = () => {
           height: 100vh;
           overflow: hidden;
           background: #000;
+          margin-bottom: 0;
         }
 
         .rd-slide {
@@ -79,11 +80,12 @@ const HeroSection: React.FC = () => {
         }
 
         video {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transform: scale(1.04);
-        }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  object-position: center center;
+}
 
         .rd-fallback {
           position: absolute;

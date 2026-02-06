@@ -1,0 +1,116 @@
+/* app/styles/epic-booking.css */
+:root {
+  --black: #000;
+  --white: #fff;
+  --muted: #9ca3af;
+  --blue: #3b82f6;
+  --red: #ef4444;
+}
+.booking-section {
+  background: var(--black);
+  padding: 160px 6vw;
+  opacity: 0;
+  transform: translateY(40px);
+}
+.booking-section.active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all .9s cubic-bezier(.22, 1, .36, 1);
+}
+.booking-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 80px;
+}
+@media (max-width: 900px) {
+  .booking-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.booking-title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900;
+  margin-bottom: 40px;
+}
+.booking-title span {
+  color: var(--blue);
+}
+.booking-points {
+  list-style: none;
+  padding-left: 24px;
+  border-left: 2px solid rgba(255, 255, 255, .1);
+}
+.booking-points li {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.booking-points li.danger {
+  color: var(--red);
+}
+.booking-right {
+  display: grid;
+  gap: 28px;
+}
+.booking-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 22px;
+  min-height: 220px;
+  padding: 40px;
+  position: relative;
+}
+.card-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 22px;
+}
+.card-head {
+  font-size: .85rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.secondary-btn {
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: .85rem;
+  letter-spacing: .1em;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: var(--white);
+  cursor: pointer;
+}
+.reveal-number {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  color: var(--white);
+  text-decoration: none;
+}
+.flip-card {
+  perspective: 1200px;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+.flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}

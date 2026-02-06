@@ -1,0 +1,79 @@
+/* app/styles/Experience.css */
+.experience-section {
+  background: radial-gradient(1200px 600px at 50% 20%, rgba(90, 120, 255, .08), transparent 60%), #000;
+  display: flex;
+  justify-content: center;
+  padding: 120px 24px;
+}
+.experience-frame {
+  max-width: 880px;
+  padding: 4.5rem 4rem;
+  background: linear-gradient(to bottom, rgba(15, 15, 25, .9), rgba(5, 5, 10, .95));
+  border-radius: 1.5rem;
+  box-shadow: 0 60px 120px #000000d9, inset 0 0 80px #ffffff05;
+  animation: fadeUp 1.6s ease forwards;
+  margin-inline: auto;
+}
+.experience-eyebrow {
+  display: inline-block;
+  font-size: .85rem;
+  letter-spacing: .25em;
+  color: #7aa2ff;
+  margin-bottom: 1rem;
+}
+.experience-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+  color: #fff;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, .9);
+}
+.experience-description {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #ffffffd1;
+  max-width: 720px;
+}
+.experience-features {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+.feature {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot.green {
+  background: #22c55e;
+  box-shadow: 0 0 12px #22c55ecc;
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  .experience-frame {
+    padding: 3rem 2rem;
+  }
+  .experience-title {
+    font-size: 2.2rem;
+  }
+  .experience-features {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+}
