@@ -80,8 +80,14 @@ export default function RootLayout() {
   return (
     <html lang="en">
       <head>
-        <Meta />
-        <Links />
+  <Meta />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+
+  <Links />
 
         {/* =======================
            STRUCTURED DATA
