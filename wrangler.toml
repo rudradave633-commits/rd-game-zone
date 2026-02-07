@@ -1,0 +1,5 @@
+name = "rd-game-zone"
+
+pages_build_output_dir = "build/client"
+
+compatibility_date = "2024-12-01"
