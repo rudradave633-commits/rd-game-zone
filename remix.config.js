@@ -1,7 +1,15 @@
 /** @type {import('@remix-run/dev').AppConfig} */
 export default {
-  ssr: false,
-  buildDirectory: "build",
-  publicPath: "/build/",
+  serverBuildTarget: "cloudflare-workers",
+
+  server: "./server.ts",
+
   ignoredRouteFiles: ["**/*.css"],
+
+  future: {
+    v2_routeConvention: true,
+    v2_meta: true,
+    v2_headers: true,
+    v2_errorBoundary: true
+  }
 };

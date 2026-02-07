@@ -56,7 +56,7 @@
   padding: 6px;
   background: rgba(0,0,0,0.55);
   border-radius: 999px;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 .category-btn {
@@ -98,7 +98,7 @@
 
 .game-search {
   flex: 1;
-  min-width: 220px;
+  min-width: 0;
 
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
@@ -153,21 +153,8 @@
 }
 
 /* ===============================
-   RESPONSIVE
+   LOCK DESKTOP GRID
 ================================ */
-
-@media (max-width: 768px) {
-  .game-library-page {
-    padding: 20px;
-    padding-top: 110px;
-  }
-
-  .library-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .library-title {
-    font-size: 42px;
-  }
+.game-grid {
+  grid-template-columns: repeat(4, 1fr);
 }

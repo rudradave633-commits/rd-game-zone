@@ -247,6 +247,68 @@ export default function RootLayout() {
           }}
         />
 
+ <script
+  dangerouslySetInnerHTML={{
+    __html: `
+      (function () {
+        const isTV =
+          matchMedia('(min-width: 1200px)').matches &&
+          !/Android|iPhone|iPad/i.test(navigator.userAgent);
+
+        if (!isTV) return;
+
+        let index = 0;
+        const getItems = () =>
+          [...document.querySelectorAll('a,button')]
+            .filter(el => el.offsetParent !== null);
+
+        window.addEventListener('keydown', e => {
+          const items = getItems();
+          if (!items.length) return;
+
+          if (['ArrowRight','ArrowDown'].includes(e.key)) {
+            index = (index + 1) % items.length;
+            items[index].focus();
+            e.preventDefault();
+          }
+          if (['ArrowLeft','ArrowUp'].includes(e.key)) {
+            index = (index - 1 + items.length) % items.length;
+            items[index].focus();
+            e.preventDefault();
+          }
+          if (e.key === 'Enter') {
+            items[index]?.click();
+          }
+        });
+      })();
+    `,
+  }}
+/>
+
+<script
+  dangerouslySetInnerHTML={{
+    __html: `
+      (function () {
+        try {
+          // Disable right-click
+          document.addEventListener("contextmenu", e => e.preventDefault());
+
+          // Block DevTools shortcuts
+          document.addEventListener("keydown", e => {
+            if (
+              e.key === "F12" ||
+              (e.ctrlKey && e.shiftKey && ["I", "C", "J"].includes(e.key)) ||
+              (e.ctrlKey && e.key === "U")
+            ) {
+              e.preventDefault();
+            }
+          });
+        } catch (e) {}
+      })();
+    `,
+  }}
+/>
+
         {/* =====================================================
            🔥 MAX ANTI-BOT + KIOSK LOCK + FINGERPRINT NOISE
         ===================================================== */}
@@ -291,11 +353,8 @@ export default function RootLayout() {
                     }
                   }, 3500);
 
-                  /* ---------- KIOSK MODE ---------- */
-                  if (matchMedia('(min-width: 2200px)').matches) {
-                    document.body.style.cursor = 'none';
-                    document.body.style.userSelect = 'none';
-                  }
+                 /* ---------- KIOSK MODE (handled earlier) ---------- */
+                 /* intentionally empty to avoid double-lock */
                 } catch (e) {}
               })();
             `,

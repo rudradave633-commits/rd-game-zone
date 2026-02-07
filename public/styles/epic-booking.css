@@ -20,7 +20,7 @@
   transition: all 0.9s cubic-bezier(0.22,1,0.36,1);
 }
 
-/* GRID */
+/* GRID — DESKTOP LOCKED */
 .booking-grid {
   max-width: 1300px;
   margin: 0 auto;
@@ -29,9 +29,15 @@
   gap: 80px;
 }
 
-@media (max-width: 900px) {
+/* ❌ REMOVE ALL MOBILE STACKING */
+@media (max-width: 768px) {
+  .booking-section {
+    padding: 160px 6vw;
+  }
+
   .booking-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
   }
 }
 
@@ -78,7 +84,6 @@
   border-radius: 22px;
   min-height: 220px;
   padding: 40px;
-  position: relative;
 }
 
 /* CENTER CONTENT */

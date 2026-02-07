@@ -101,21 +101,3 @@
     transform: translateY(0);
   }
 }
-
-/* ===============================
-   MOBILE
-================================ */
-@media (max-width: 768px) {
-  .experience-frame {
-    padding: 3rem 2rem;
-  }
-
-  .experience-title {
-    font-size: 2.2rem;
-  }
-
-  .experience-features {
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-}

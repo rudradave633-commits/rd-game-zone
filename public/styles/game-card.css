@@ -2,7 +2,7 @@
    GAME CARD BASE
 ========================= */
 
-.game-card {
+.game-info-card {
   background: linear-gradient(180deg, #ffffff3d, #ffffff3d);
   border-radius: 18px;
   overflow: hidden;
@@ -18,7 +18,7 @@
    IMAGE
 ========================= */
 
-.game-card-image {
+.game-info-card-image {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;

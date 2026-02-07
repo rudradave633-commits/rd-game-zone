@@ -75,17 +75,20 @@ const RingCarousel: React.FC = () => {
         video {
           opacity: 1;
         }
+      @media (min-width: 2200px) {
+  .ring-track {
+    gap: 72px;
+  }
 
-        @media (max-width: 768px) {
-          .ring-slider-section {
-            height: 95vh;
-          }
+  .ring-item {
+    transform: rotateY(-12deg);
+  }
 
-          .ring-item {
-            width: 260px;
-            height: 160px;
-          }
-        }
+  .ring-item:nth-child(even) {
+    transform: rotateY(12deg);
+  }
+}
+       
       `}</style>
 
       <div className="ring-slider">

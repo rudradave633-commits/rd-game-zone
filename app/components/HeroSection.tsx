@@ -61,7 +61,7 @@ const HeroSection: React.FC = () => {
         .rd-hero {
           position: relative;
           width: 100%;
-          height: 100vh;
+          height: 100svh;
           overflow: hidden;
           background: #000;
           margin-bottom: 0;
@@ -107,14 +107,14 @@ const HeroSection: React.FC = () => {
         }
 
         .rd-content {
-          position: absolute;
-          left: 50px;
-          bottom: 45px;
-          max-width: 720px;
-          color: #fff;
-          z-index: 2;
-          animation: fadeUp 0.9s ease forwards;
-        }
+  position: absolute;
+  left: clamp(32px, 4vw, 56px);
+  bottom: clamp(32px, 4vh, 56px);
+  max-width: 720px;
+  color: #fff;
+  z-index: 2;
+  animation: fadeUp 0.9s ease forwards;
+}
 
         .rd-title {
           font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -156,14 +156,14 @@ const HeroSection: React.FC = () => {
           background: rgba(255,255,255,0.06);
         }
 
-        .rd-indicators {
-          position: absolute;
-          right: 20px;
-          bottom: 35px;
-          display: flex;
-          gap: 8px;
-          z-index: 2;
-        }
+       .rd-indicators {
+  position: absolute;
+  right: clamp(24px, 3vw, 40px);
+  bottom: clamp(24px, 4vh, 48px);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
 
         .rd-indicator {
           height: 4px;
@@ -183,18 +183,16 @@ const HeroSection: React.FC = () => {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
+      @media (min-width: 2200px) {
+  .rd-title {
+    font-size: 5rem;
+  }
 
-        @media (max-width: 768px) {
-          .rd-content {
-            left: 20px;
-            right: 20px;
-            bottom: 72px;
-          }
-          .rd-indicators {
-            right: 20px;
-            bottom: 72px;
-          }
-        }
+  .rd-indicator {
+    height: 6px;
+  }
+}
+       
       `}</style>
 
       {HERO_SLIDES.map((slide, index) => (

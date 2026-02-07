@@ -142,13 +142,38 @@ export default function Navbar() {
         .rd-closed svg {
           color: #2b0b0b;
         }
+       /* ✅ SAFE: NO LAYOUT CHANGE */
+@media (max-width: 900px) {
+  .rd-navbar {
+    padding: 0 20px;
+  }
 
-        /* MOBILE */
-        @media (max-width: 900px) {
-          .rd-nav {
-            display: none;
-          }
-        }
+  .rd-nav {
+    gap: 22px;
+  }
+
+  .rd-brand-title {
+    font-size: 16px;
+  }
+
+  .rd-brand-sub {
+    font-size: 10px;
+  }
+}
+  @media (min-width: 2200px) {
+  .rd-navbar {
+    height: 84px;
+  }
+
+  .rd-nav a {
+    font-size: 16px;
+  }
+
+  .rd-status-pill {
+    font-size: 13px;
+  }
+}
+        
       `}</style>
 
       {/* LEFT */}

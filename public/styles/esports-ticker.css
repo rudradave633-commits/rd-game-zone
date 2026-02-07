@@ -72,14 +72,3 @@
   opacity: 1;
   color: #ffffff;
 }
-
-@media (max-width: 768px) {
-  .ticker-text {
-    font-size: 13px;
-    margin-right: 28px;
-  }
-
-  .esports-ticker {
-    padding: 10px 0;
-  }
-}

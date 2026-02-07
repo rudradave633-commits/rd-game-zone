@@ -100,14 +100,3 @@
   opacity: 0.95;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .gta-glass-bar {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .gta-warning-bar {
-    align-self: center;
-  }
-}

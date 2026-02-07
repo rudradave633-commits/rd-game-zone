@@ -190,3 +190,18 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* =====================================================
+   LOCK DESKTOP LAYOUT (ALL DEVICES)
+   Scaling handled globally — NO reflow
+===================================================== */
+
+@media (max-width: 768px) {
+  .epic-container,
+  .epic-headline,
+  .epic-grid,
+  .epic-stat-box,
+  .epic-footer-text {
+    all: unset;
+  }
+}

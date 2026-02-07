@@ -1,5 +1,7 @@
 
-
+html {
+  scroll-padding-top: 80px;
+}
 /* ===== REAL VIEWPORT HEIGHT FIX ===== */
 :root {
   --vh: 1vh;
@@ -26,55 +28,34 @@ body {
   color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
 }
 
-/* Root must NOT control height when scaled */
-#root {
-  width: 100%;
-  background: #000;
-}
+/* ===============================
+   DESKTOP CANVAS (MASTER)
+================================ */
 
-/* Prevent mobile auto font zoom */
+
 * {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   box-sizing: border-box;
 }
 
-/* Remove focus outlines / white lines */
-:focus {
-  outline: none;
-  box-shadow: none;
+/* KEEP INTERACTION WORKING */
+a,
+button {
+  pointer-events: auto;
 }
 
-/* Hide scrollbars but keep scroll */
-* {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-*::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+/* Remove focus outlines / white lines */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
 body {
   background: #000;
-  overflow-x: hidden;
-}
-
-/* ================================
-   DESKTOP CANVAS (CORE FIX)
-   This preserves your layout size
-================================ */
-#root {
-  min-width: 1400px;
-}
-
-/* Allow horizontal scroll on small screens */
-@media (max-width: 1200px) {
-  body {
-    overflow-x: auto;
-  }
 }
 
 /* ================================
@@ -98,13 +79,16 @@ body {
   text-decoration: none;
   font-weight: 700;
 }
+body {
+  padding-top: 64px;
+}
 
 /* ================================
    HERO
 ================================ */
 .hero {
   position: relative;
-  height: calc(100vh - 56px);
+  height: calc(var(--vh) * 100 - 56px);
   min-height: 400px;
   display: flex;
   align-items: center;
@@ -241,79 +225,7 @@ button.secondary {
   100% { opacity: 0; }
 }
 
-/* =========================================================
-   FINAL RESPONSIVE CONTROL SYSTEM
-   Desktop is the single source of truth
-========================================================= */
 
-/* ===============================
-   DESIGN CONSTANTS
-================================ */
-:root {
-  --design-width: 1400;
-  --min-scale: 0.72; /* never shrink more than this */
-  --max-scale: 1;
-}
-
-/* ===============================
-   ROOT CANVAS CONTROL
-================================ */
-#root {
-  width: calc(var(--design-width) * 1px);
-  min-width: calc(var(--design-width) * 1px);
-  transform-origin: top left;
-  background: #000;
-}
-
-/* ===============================
-   AUTO SCALE (ALL DEVICES)
-   Keeps layout identical
-================================ */
-@media (max-width: 1400px) {
-  #root {
-    transform: scale(
-      clamp(
-        var(--min-scale),
-        calc(100vw / var(--design-width)),
-        var(--max-scale)
-      )
-    );
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-}
-
-/* ===============================
-   iPAD SPECIFIC TUNING
-================================ */
-@media (min-width: 768px) and (max-width: 1180px) {
-  #root {
-    transform: scale(
-      clamp(
-        0.82,
-        calc(100vw / var(--design-width)),
-        1
-      )
-    );
-  }
-}
-
-/* ===============================
-   MOBILE PORTRAIT (NO FORCE ROTATE)
-================================ */
-@media (max-width: 767px) {
-  #root {
-    transform: scale(
-      clamp(
-        0.75,
-        calc(100vw / var(--design-width)),
-        1
-      )
-    );
-  }
-}
 
 /* ===============================
    DISABLE OLD ROTATE LOCK (FIX STUCK SCREEN)
@@ -348,8 +260,9 @@ button.secondary {
 ================================ */
 @media (hover: none) and (pointer: coarse) {
   *:hover {
-    all: unset;
+    transform: none !important;
   }
+}
 
   button,
   a {
@@ -360,7 +273,7 @@ button.secondary {
   a:active {
     transform: scale(0.96);
   }
-}
+
 
 /* ===============================
    PREMIUM MOBILE SCROLL INDICATOR
@@ -408,53 +321,97 @@ button.secondary {
   }
 }
 
-/* ===============================
-   KIOSK / AUTOPLAY MODE
-   (No scroll bounce, no zoom)
-================================ */
-@media (pointer: coarse) {
-  html, body {
-    overscroll-behavior: none;
-    touch-action: manipulation;
-  }
+/* =========================================================
+   REAL FLUID DESKTOP SYSTEM  (PERMANENT FIX)
+   Keeps desktop look but adapts to device
+========================================================= */
+
+/* Universal container width */
+#root {
+  width: 100%;
+  margin: 0 auto;
+  background: #000;
 }
 
-/* ===============================
-   AUTO TV / BIG SCREEN MODE
-================================ */
-@media (min-width: 2200px), (min-device-width: 1920px) {
-  body {
-    background: #000;
-  }
-
-  #root {
-    width: 1920px;
-    min-width: 1920px;
-    transform: scale(1.15);
-    transform-origin: top center;
-  }
-
-  * {
-    letter-spacing: 0.02em;
-  }
+/* Section content alignment */
+section,
+.epic-container,
+.pricing-container,
+.booking-grid,
+.rd-content,
+.game-library-page,
+.guidelines-section,
+.experience-frame {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* ===============================
-   ARCADE / KIOSK MODE
-================================ */
+/* Prevent side overflow everywhere */
 html, body {
-  overscroll-behavior: none;
-  touch-action: manipulation;
+  overflow-x: hidden;
 }
 
-@media (pointer: coarse) {
-  body {
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
+/* Typography scaling */
+h1 { font-size: clamp(32px, 5vw, 64px); }
+h2 { font-size: clamp(26px, 4vw, 48px); }
+h3 { font-size: clamp(20px, 3vw, 28px); }
+p  { font-size: clamp(14px, 1.3vw, 18px); }
+
+/* Mobile adjustments (phones) */
+@media (max-width: 768px) {
+
+  .rd-content {
+    left: 20px !important;
+    right: 20px !important;
+    bottom: 60px !important;
   }
 
-  button, a {
-    touch-action: manipulation;
+  .booking-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
   }
+
+  .pricing-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .guidelines-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .rd-nav {
+    position: relative !important;
+    top: 0 !important;
+  }
+
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+
+  .pricing-grid,
+  .guidelines-grid,
+  .game-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+}
+
+/* 4K TV / large displays */
+@media (min-width: 2000px) {
+
+  section {
+    max-width: 1800px;
+  }
+
+  h1 { font-size: 72px; }
+  h2 { font-size: 56px; }
+  h3 { font-size: 34px; }
+
 }
