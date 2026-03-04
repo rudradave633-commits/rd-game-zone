@@ -10,7 +10,7 @@ const STORE = {
   lng:         72.58923,
   zoom:        19,
   address:     "First Floor, A-113, Advance Business Park, Opp. Swaminarayan Temple, Shahibag, Ahmedabad – 380004",
-  phone:       "+91 XXXXX XXXXX",          // ← replace with real number
+  phone:       "+91 7665533991",          // ← replace with real number
   email:       "support@rdgamezone.com",
   dirLink:     "https://www.google.com/maps/dir/?api=1&destination=23.045587,72.58923&travelmode=driving",
   googleBadge: "https://share.google/uUXajxFXWgKKRfWGR",
