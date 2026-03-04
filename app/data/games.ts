@@ -8,7 +8,7 @@ export const games: Game[] = [
     category: "SHOOTING",
     playerType: "MULTIPLAYER",
     platforms: ["PS5",],
-    status: "unavailable",
+    status: "available",
     image: "/images/cod-blackops-7.jpg",
     video: {
       type: "youtube",
