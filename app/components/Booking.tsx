@@ -129,7 +129,7 @@ export default function EpicBooking() {
           <h2 className="bk__title">Book Your Session</h2>
           <p className="bk__sub">
             Reserve in advance or walk in. Open every day —
-            call us or show up at the zone.
+            call us or visit Offline Store at the Rd Game Zone.
           </p>
         </div>
 
@@ -157,7 +157,7 @@ export default function EpicBooking() {
             <h3 className="bk__card-title">Direct Booking</h3>
             <p className="bk__card-label">CALL US</p>
             <p className="bk__card-num">+91 76655 33991</p>
-            <p className="bk__card-note">Mon – Sun · 10 AM – 11 PM</p>
+            <p className="bk__card-note">Mon – Sun · 10 AM – 10 PM</p>
             <a href="tel:+917665533991" className="bk__btn bk__btn--primary">
               Call Now <span className="bk__btn-ico"><IcoArrow /></span>
             </a>
