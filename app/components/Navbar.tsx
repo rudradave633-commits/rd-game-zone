@@ -116,7 +116,21 @@ export default function Navbar() {
       >
         <Link to="/" className="rdnav__brand" aria-label="RD Game Zone home">
           <div className="rdnav__logo-box" aria-hidden="true">
-            <img src="/logo.svg" alt="" className="rdnav__logo-img" width="28" height="28" loading="eager" />
+            {/*
+              logo.svg — RD Game Zone custom logo (328×340 portrait aspect).
+              Rendered white via fill="white" inside the SVG file.
+              width/height set to equal values here; object-fit in CSS
+              preserves the natural aspect ratio without cropping.
+            */}
+            <img
+              src="/icons/logo.svg"
+              alt=""
+              className="rdnav__logo-img"
+              width="28"
+              height="29"
+              loading="eager"
+              decoding="async"
+            />
             <div className="rdnav__logo-ring" />
           </div>
           <div className="rdnav__brand-text">
@@ -172,7 +186,18 @@ export default function Navbar() {
 
         <Link to="/" className="rdmenu__brand" onClick={() => setMenuOpen(false)} tabIndex={menuOpen ? 0 : -1}>
           <div className="rdmenu__logo-box">
-            <img src="/logo.svg" alt="" width="36" height="36" />
+            {/*
+              Mobile menu logo — larger at 36×37 to match portrait aspect.
+              Same logo.svg file, no separate asset needed.
+            */}
+            <img
+              src="/icons/logo.svg"
+              alt=""
+              width="36"
+              height="37"
+              loading="eager"
+              decoding="async"
+            />
           </div>
           <div>
             <div className="rdmenu__brand-name">RD GAME ZONE</div>
