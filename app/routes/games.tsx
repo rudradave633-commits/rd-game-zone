@@ -1,4 +1,4 @@
-import GameLibraryPage from "../components/GameLibrarypage";
+import GameLibraryPage from "~/components/GameLibrarypage";
 
 export default function GamesRoute() {
   return <GameLibraryPage />;

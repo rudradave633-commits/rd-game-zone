@@ -1,0 +1,512 @@
+/* ================================================================
+   GAME CARD — game-card.css
+   Exact TSX order: .game-card-image → h3.game-title → p.game-subtitle
+                    → .tag-row → .platform-row → button.watch-trailer
+   ✅ More gap between image and text content
+   ✅ Mobile 3-col compact but readable
+   ================================================================ */
+
+/* ════════════════════════════════════
+   BASE CARD
+════════════════════════════════════ */
+.game-card {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+    158deg,
+    rgba(255,255,255,0.045) 0%,
+    rgba(8,10,20,0.95)      55%,
+    rgba(4,5,14,0.98)       100%
+  );
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+
+  padding: 8px;
+  padding-bottom: 9px;
+
+  display: flex;
+  flex-direction: column;
+  /* ✅ Gap controls all spacing between children — no margins needed */
+  gap: 0;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    inset 0 -1px 0 rgba(0,0,0,0.28),
+    0 4px 16px rgba(0,0,0,0.42),
+    0 1px 3px rgba(0,0,0,0.26);
+
+  transition:
+    transform    0.30s cubic-bezier(0.34,1.56,0.64,1),
+    border-color 0.28s ease,
+    box-shadow   0.28s ease;
+}
+
+/* Scan-line texture */
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.055) 2px,
+    rgba(0,0,0,0.055) 3px
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  border-radius: inherit;
+}
+
+/* Left glow bar */
+.game-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    #00e5ff     30%,
+    #0055ff     70%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  border-radius: 12px 0 0 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (min-width: 900px) {
+  .game-card:hover {
+    transform: translateY(-4px) scale(1.016);
+    border-color: rgba(0,229,255,0.20);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.065),
+      0 18px 44px rgba(0,0,0,0.52),
+      0 0 0 1px rgba(0,229,255,0.09),
+      0 0 36px rgba(0,229,255,0.055);
+  }
+  .game-card:hover::before { opacity: 1; }
+  .game-card:hover::after  { opacity: 1; }
+  .game-card:hover .game-card-image img { transform: scale(1.055); }
+  .game-card:hover .game-title { color: #d6f6ff; }
+}
+
+/* ════════════════════════════════════
+   IMAGE
+════════════════════════════════════ */
+.game-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 7px;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* ✅ Bottom margin = gap between image and first text item */
+  margin-bottom: 16px;
+}
+
+.game-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.44s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Vignette */
+.game-card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 25%,
+    rgba(0,0,0,0.20) 60%,
+    rgba(0,0,0,0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Status dot */
+.status-dot {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 4;
+  cursor: default;
+}
+
+.status-dot.available   { background: #00ff9c; box-shadow: 0 0 7px #00ff9c; }
+.status-dot.upcoming    { background: #ffd000; box-shadow: 0 0 7px #ffd000; animation: pulseYellow 1.8s infinite; }
+.status-dot.unavailable { background: #ff3b3b; box-shadow: 0 0 7px #ff3b3b; }
+
+@keyframes pulseYellow {
+  0%, 100% { transform: scale(1);   opacity: 0.65; }
+  50%       { transform: scale(1.7); opacity: 1;    }
+}
+
+.status-dot::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 15px;
+  left: 0;
+  background: rgba(0,0,0,0.92);
+  color: #fff;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-3px);
+  transition: opacity 0.16s, transform 0.16s;
+  z-index: 10;
+}
+
+.status-dot:hover::after { opacity: 1; transform: translateY(0); }
+
+/* 18+ badge */
+.badge-18 {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  min-width: 24px;
+  height: 16px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 8px;
+  font-weight: 900;
+  color: #ff4455;
+  text-transform: uppercase;
+  background: rgba(255,59,59,0.14);
+  border: 1px solid rgba(255,59,59,0.42);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  z-index: 4;
+  animation: badgePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(255,59,59,0.22); }
+  50%       { box-shadow: 0 0 10px rgba(255,59,59,0.52); }
+}
+
+/* ════════════════════════════════════
+   TEXT CONTENT BLOCK
+   All children after image share 5px gap
+════════════════════════════════════ */
+
+/* Wrapper to group title → subtitle → tags → platform → button
+   We apply flex column + gap here because TSX has no wrapper div.
+   We target all direct children after the image using adjacent selectors. */
+.game-card-image ~ * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Gap between each text element */
+.game-title       { margin: 0 0 5px; }
+.game-subtitle    { margin: 0 0 5px; }
+.tag-row          { margin: 0 0 5px; }
+.platform-row     { margin: 0 0 6px; }
+.watch-trailer    { margin: 0; margin-top: auto; }
+
+/* ── Title ── */
+.game-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(8.5px, 0.90vw, 12px);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.22;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+  transition: color 0.22s;
+}
+
+/* ── Subtitle ── */
+.game-subtitle {
+  font-family: "Rajdhani", sans-serif;
+  font-size: clamp(8px, 0.78vw, 10.5px);
+  font-weight: 600;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* ── Tags ── */
+.tag-row {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: "Rajdhani", sans-serif;
+  font-size: clamp(6.5px, 0.62vw, 8.5px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.50);
+  white-space: nowrap;
+  text-transform: uppercase;
+  line-height: 1.65;
+}
+
+/* ── Platform row ── */
+.platform-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 0 2px;
+  padding: 5px 6px;
+  background: linear-gradient(
+    135deg,
+    rgba(190,0,55,0.52) 0%,
+    rgba(4,0,185,0.48)  100%
+  );
+  border-radius: 7px;
+  border: 1px solid rgba(255,255,255,0.055);
+  overflow: hidden;
+}
+
+.platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: "Rajdhani", sans-serif;
+  font-size: clamp(7px, 0.72vw, 10px);
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  line-height: 1;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.platform svg {
+  width: clamp(7px, 0.72vw, 10px);
+  height: clamp(7px, 0.72vw, 10px);
+  flex-shrink: 0;
+}
+
+.platform:not(:last-child)::after {
+  content: "|";
+  margin: 0 3px;
+  color: rgba(255,255,255,0.22);
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════
+   WATCH TRAILER — Premium 3-layer effect
+════════════════════════════════════ */
+.watch-trailer {
+  position: relative;
+  width: 100%;
+  height: 34px;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 2;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.042) 0px,
+    rgba(255,255,255,0.042) 1px,
+    rgba(8,11,20,0.92)      1px,
+    rgba(6,8,18,0.95)       100%
+  );
+  border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.62);
+
+  font-family: "Rajdhani", sans-serif;
+  font-size: clamp(7.5px, 0.78vw, 10.5px);
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  transition:
+    border-color 0.26s ease,
+    color        0.26s ease,
+    background   0.26s ease,
+    box-shadow   0.26s ease;
+}
+
+/* Shimmer sweep */
+.watch-trailer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -115%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    106deg,
+    transparent              0%,
+    rgba(255,255,255,0.028) 38%,
+    rgba(255,255,255,0.08)  50%,
+    rgba(255,255,255,0.028) 62%,
+    transparent              100%
+  );
+  transition: left 0.50s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Bottom cyan line */
+.watch-trailer::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #00e5ff 30%, #0055ff 70%, transparent);
+  border-radius: 2px;
+  transition: width 0.32s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.watch-trailer:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(0,229,255,0.07) 0px,
+    rgba(0,229,255,0.07) 1px,
+    rgba(0,229,255,0.03) 1px,
+    rgba(0,229,255,0.015) 100%
+  );
+  border-color: rgba(0,229,255,0.28);
+  color: #00e5ff;
+  box-shadow: 0 0 14px rgba(0,229,255,0.06);
+}
+
+.watch-trailer:hover::before { left: 140%; }
+.watch-trailer:hover::after  { width: 70%; }
+.watch-trailer:active        { transform: scale(0.974); }
+
+.watch-trailer.disabled {
+  background: rgba(255,255,255,0.018);
+  border-color: rgba(255,255,255,0.045);
+  color: rgba(255,255,255,0.18);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.watch-trailer.disabled::before,
+.watch-trailer.disabled::after { display: none; }
+
+/* ════════════════════════════════════════
+   MOBILE ≤ 599px — 3-col compact
+   Card width ≈ (390 - 20px padding - 14px gaps) / 3 ≈ 118px
+════════════════════════════════════════ */
+@media (max-width: 599px) {
+  .game-card {
+    padding: 6px;
+    padding-bottom: 7px;
+    border-radius: 9px;
+    transition: border-color 0.18s; /* no lift on touch */
+  }
+  .game-card:hover { transform: none !important; }
+  .game-card:hover::before,
+  .game-card:hover::after { opacity: 0 !important; }
+  .game-card:hover .game-card-image img { transform: none !important; }
+  .game-card:hover .game-title { color: #fff !important; }
+
+  /* ✅ Slightly more gap on mobile too */
+  .game-card-image { border-radius: 5px; margin-bottom: 11px; }
+
+  .game-title {
+    font-size: clamp(7.5px, 2.2vw, 9px);
+    margin-bottom: 4px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    letter-spacing: 0;
+    line-height: 1.18;
+  }
+
+  .game-subtitle {
+    font-size: clamp(7px, 2vw, 8px);
+    margin-bottom: 4px;
+  }
+
+  .tag-row { gap: 2px; margin-bottom: 4px; }
+  .tag { font-size: 6.5px; padding: 1px 4px; }
+
+  .platform-row { padding: 4px 4px; border-radius: 5px; margin-bottom: 5px; }
+  .platform { font-size: clamp(6.5px, 1.9vw, 8px); gap: 2px; }
+  .platform svg { width: 7px; height: 7px; }
+  .platform:not(:last-child)::after { margin: 0 2px; }
+
+  .watch-trailer {
+    height: 24px;
+    font-size: clamp(6.5px, 1.8vw, 8px);
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+    gap: 3px;
+  }
+
+  .badge-18 { font-size: 6.5px; height: 13px; min-width: 18px; }
+  .status-dot { width: 6px; height: 6px; top: 4px; left: 4px; }
+}
+
+/* ── Tablet / landscape 600–899px ── */
+@media (min-width: 600px) and (max-width: 899px) {
+  .game-card { padding: 7px; padding-bottom: 8px; }
+  .game-card-image { margin-bottom: 13px; }
+  .game-title    { font-size: clamp(8.5px, 1.5vw, 11px); }
+  .game-subtitle { font-size: clamp(8px, 1.3vw, 10px); }
+  .tag           { font-size: clamp(7px, 1.1vw, 9px); }
+  .platform      { font-size: clamp(7px, 1.2vw, 9.5px); }
+  .watch-trailer { height: 28px; font-size: clamp(7.5px, 1.2vw, 10px); }
+  .game-card:hover { transform: none; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .game-card, .game-card-image img,
+  .watch-trailer, .watch-trailer::before, .watch-trailer::after,
+  .status-dot, .badge-18 {
+    transition: none !important;
+    animation:  none !important;
+  }
+}

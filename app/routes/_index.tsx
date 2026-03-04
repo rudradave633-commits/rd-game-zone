@@ -1,6 +1,6 @@
-import HeroSection from "../components/HeroSection";
-import AboutSection from "../components/About";
-import RingCarousel from "~/components/RingCarousel";
+import type { MetaFunction } from "@remix-run/node";
+import CinematicHero from "~/components/CinematicHero";
+import AboutSection from "~/components/About";
 import Pricing from "~/components/Pricing";
 import Booking from "~/components/Booking";
 import GTAOnlinePolicy from "~/components/GTAOnlinePolicy";
@@ -10,13 +10,17 @@ import Experience from "~/components/Experience";
 import EsportsTicker from "~/components/EsportsTicker";
 import Footer from "~/components/Footer";
 
+/* Page-level meta override (root.tsx handles the main SEO) */
+export const meta: MetaFunction = () => [
+  { title: "RD Game Zone | #1 Gaming Cafe in Ahmedabad – PS5, PC & LAN Gaming" },
+];
+
 export default function Home() {
   return (
-    <>
-      <HeroSection />
+    <main aria-label="RD Game Zone Homepage">
+      <CinematicHero />
       <EsportsTicker />
       <AboutSection />
-      <RingCarousel />
       <Pricing />
       <Booking />
       <GTAOnlinePolicy />
@@ -24,6 +28,6 @@ export default function Home() {
       <GameLibraryHome />
       <Experience />
       <Footer />
-    </>
+    </main>
   );
 }

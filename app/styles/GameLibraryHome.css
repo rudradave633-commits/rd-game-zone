@@ -1,0 +1,214 @@
+/* ================================================================
+   GAME LIBRARY HOME — Animated scrolling gallery
+
+   Desktop  (>1024px) : 4 rows, card 256×380px
+   Portrait (≤1024px) : 3 rows, card 140×200px
+   Landscape(≤1024px) : 3 rows, card 140×200px  ← SAME as portrait
+   ================================================================ */
+
+/* ── SECTION ── */
+.game-library-container {
+  position: relative;
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+  padding-bottom: clamp(200px, 28vw, 340px);
+  padding-top: clamp(24px, 3vw, 48px);
+}
+
+/* ── GALLERY WRAPPER ── */
+.gallery-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.2vw, 24px);
+}
+
+/* ── LAYER CONTAINER ── */
+.layer-container {
+  position: relative;
+  width: 100%;
+  height: 380px; /* desktop default, overridden per mode */
+  overflow: hidden;
+}
+
+/* ── SCROLL STRIP ── */
+.layer-scroll {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: clamp(8px, 1.2vw, 24px);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  height: 100%;
+}
+
+.layer-scroll.paused { animation-play-state: paused !important; }
+.layer-scroll.left   { animation: scrollLeft  linear infinite; }
+.layer-scroll.right  { animation: scrollRight linear infinite; }
+
+/* ── GALLERY CARD ── */
+.glh-card {
+  flex-shrink: 0;
+  width: 256px;   /* desktop default */
+  height: 380px;  /* desktop default */
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1f2937;
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.55);
+  transition: transform 0.3s ease;
+}
+
+.glh-card:hover { transform: scale(1.05); }
+
+/* ── CARD INNER ── */
+.glh-card-inner {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.glh-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(30,  58, 138, 0.35),
+    rgba(88,  28, 135, 0.35),
+    rgba(153, 27,  27, 0.35)
+  );
+}
+
+.glh-title {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: clamp(6px, 1.2vw, 16px) clamp(8px, 1.5vw, 20px);
+  background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.7), transparent);
+}
+
+.glh-title h3 {
+  margin: 0;
+  color: #fff;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.6rem, 1.1vw, 1.1rem);
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.95);
+  word-break: break-word;
+}
+
+/* ── EDGE FADES ── */
+.gradient-overlay-left,
+.gradient-overlay-right {
+  position: absolute;
+  top: 0;
+  width: clamp(40px, 6vw, 128px);
+  height: 100%;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.gradient-overlay-left  { left: 0;  background: linear-gradient(to right, #000, transparent); }
+.gradient-overlay-right { right: 0; background: linear-gradient(to left,  #000, transparent); }
+
+/* ── TEXT OVERLAY ── */
+.hero-overlay-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  text-align: center;
+  padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 32px) clamp(28px, 4vw, 56px);
+  background: linear-gradient(to top, rgba(0,0,0,0.97), rgba(0,0,0,0.7), transparent);
+  pointer-events: none;
+}
+
+.hero-overlay-text > * { pointer-events: all; }
+
+.hero-overlay-text h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(1.6rem, 4vw, 3.8rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 8px 32px rgba(0,0,0,1);
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.hero-overlay-text p {
+  font-family: "Rajdhani", sans-serif;
+  font-size: clamp(0.85rem, 1.5vw, 1.3rem);
+  color: rgba(255,255,255,0.78);
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+
+.view-all-button {
+  display: inline-block;
+  padding: clamp(10px, 1.2vw, 16px) clamp(24px, 3.5vw, 52px);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.32);
+  cursor: pointer;
+  font-family: "Rajdhani", sans-serif;
+  font-size: clamp(12px, 1.2vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+  touch-action: manipulation;
+}
+
+.view-all-button:hover {
+  background: rgba(255,255,255,0.26);
+  transform: translateY(-2px);
+}
+
+/* ════════════════════════════════════════
+   DESKTOP (> 1024px) — 4 rows
+   ════════════════════════════════════════ */
+.glc--desktop .layer-container { height: 380px; }
+.glc--desktop .glh-card        { width: 256px; height: 380px; }
+.glc--desktop .gallery-wrapper { gap: 24px; }
+
+/* ════════════════════════════════════════
+   PORTRAIT MOBILE — 3 rows, 140×200
+   ════════════════════════════════════════ */
+.glc--portrait .layer-container { height: 200px; }
+.glc--portrait .glh-card        { width: 140px; height: 200px; border-radius: 8px; border-width: 1.5px; }
+.glc--portrait .gallery-wrapper { gap: 10px; }
+.glc--portrait                  { padding-bottom: clamp(160px, 30vw, 240px); }
+
+/* ════════════════════════════════════════
+   LANDSCAPE MOBILE — 3 rows, SAME 140×200
+   Exact same card size as portrait so cards
+   look full and not cropped or squished
+   ════════════════════════════════════════ */
+.glc--landscape .layer-container { height: 200px; }
+.glc--landscape .glh-card        { width: 140px; height: 200px; border-radius: 8px; border-width: 1.5px; }
+.glc--landscape .gallery-wrapper { gap: 10px; }
+.glc--landscape                  { padding-bottom: clamp(140px, 22vh, 220px); padding-top: 16px; }
+
+/* Landscape text is smaller to fit shorter viewport */
+.glc--landscape .hero-overlay-text h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); }
+.glc--landscape .hero-overlay-text p  { font-size: 0.9rem; margin-bottom: 10px; }
+.glc--landscape .view-all-button      { padding: 9px 24px; font-size: 12px; }
+
+/* ════════════════════════════════════════
+   ANIMATIONS
+   ════════════════════════════════════════ */
+@keyframes scrollLeft {
+  from { transform: translateX(0);    }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0);    }
+}

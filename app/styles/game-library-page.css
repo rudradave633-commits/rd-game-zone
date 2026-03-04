@@ -1,0 +1,672 @@
+/* ================================================================
+   GAME LIBRARY PAGE — game-library-page.css
+   ✅ Mobile: everything in ONE row (genre btn + status pills + search icon)
+   ✅ No subtitle anywhere
+   ✅ Desktop: 2-row (genres | status+search)
+   ✅ Bottom-sheet drawer mobile only
+   ================================================================ */
+
+/* ════════════════════════════════════════
+   PAGE
+════════════════════════════════════════ */
+.game-library-page {
+  position: relative;
+  padding-inline: clamp(14px, 3vw, 56px);
+  padding-top:    clamp(78px, 11vw, 118px);
+  padding-bottom: clamp(48px, 7vw, 96px);
+  color: #fff;
+  background: #04050a;
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Ambient glow */
+.game-library-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 38% at 12% 18%, rgba(0,80,255,0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 32% at 88% 78%, rgba(0,229,255,0.035) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 480px) {
+  .game-library-page { padding-inline: 10px; }
+}
+
+/* ════════════════════════════════════════
+   HEADER — h1 only, no subtitle ever
+════════════════════════════════════════ */
+.library-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 22px;
+}
+
+.library-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(28px, 7vw, 96px);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.0;
+  margin: 0;
+  word-break: break-word;
+  text-shadow:
+    0 0 48px rgba(0,229,255,0.10),
+    0 2px 10px rgba(0,0,0,0.70);
+}
+
+/* ════════════════════════════════════════════════════════════
+   DESKTOP CONTROLS — hidden on ≤ 768px
+   .desktop-controls
+     .desktop-row--genres        row 1: genre pills inline
+     .desktop-row--status-search row 2: status + search
+════════════════════════════════════════════════════════════ */
+.desktop-controls {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  margin-bottom: 22px;
+  background: rgba(255,255,255,0.022);
+  border: 1px solid rgba(255,255,255,0.055);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,229,255,0.03),
+    0 8px 28px rgba(0,0,0,0.38),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* Top cyan accent line */
+.desktop-controls::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, #00e5ff 28%, #0055ff 68%, transparent 100%);
+  opacity: 0.38;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  .desktop-controls { display: none; }
+}
+
+.desktop-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.desktop-row + .desktop-row {
+  border-top: 1px solid rgba(255,255,255,0.042);
+}
+
+/* Row 1 */
+.desktop-row--genres {
+  padding: 8px 14px;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.desktop-row--genres::-webkit-scrollbar { display: none; }
+
+/* Row 2 */
+.desktop-row--status-search {
+  padding: 8px 14px;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.status-pill-group {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.status-pill-group::-webkit-scrollbar { display: none; }
+
+/* ════════════════════════════════════════
+   FILTER PILLS — shared desktop + mobile
+════════════════════════════════════════ */
+.filter-pill {
+  flex-shrink: 0;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 13px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.18s, background 0.18s, border-color 0.18s, transform 0.15s;
+  min-height: 30px;
+}
+
+.filter-pill:hover {
+  color: rgba(255,255,255,0.88);
+  background: rgba(0,229,255,0.06);
+  border-color: rgba(0,229,255,0.14);
+}
+
+.filter-pill:active { transform: scale(0.95); }
+
+.filter-pill:focus-visible {
+  outline: 2px solid #00e5ff;
+  outline-offset: 2px;
+}
+
+.filter-pill--active {
+  color: #050608;
+  background: #ffffff;
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 0 14px rgba(255,255,255,0.12), 0 1px 5px rgba(0,0,0,0.28);
+}
+
+.filter-pill--active:hover { background: #f0f7ff; color: #050608; }
+
+.filter-pill--status {
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 10.5px;
+}
+
+/* ════════════════════════════════════════
+   SEARCH FIELD — desktop + mobile expand
+════════════════════════════════════════ */
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 220px;
+  background: rgba(255,255,255,0.038);
+  border: 1px solid rgba(255,255,255,0.085);
+  border-radius: 10px;
+  cursor: text;
+  transition: border-color 0.22s, box-shadow 0.22s, background 0.22s;
+}
+
+.search-field:focus-within {
+  background: rgba(0,229,255,0.04);
+  border-color: rgba(0,229,255,0.36);
+  box-shadow: 0 0 0 3px rgba(0,229,255,0.07);
+}
+
+.search-field__icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.32);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color 0.18s;
+}
+
+.search-field:focus-within .search-field__icon {
+  color: rgba(0,229,255,0.70);
+}
+
+.search-field__input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 9px 32px 9px 34px;
+  min-height: 38px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-field__input::placeholder { color: rgba(255,255,255,0.26); }
+.search-field__input::-webkit-search-decoration,
+.search-field__input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.search-field__clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.16s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.search-field__clear:hover { background: rgba(255,255,255,0.20); color: #fff; }
+
+/* Full width variant for mobile */
+.search-field--mobile {
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .search-field { width: 260px; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE CONTROLS — ≤ 768px only
+   ✅ .mobile-row = SINGLE horizontal row, no wrapping
+      [≡ GENRES btn] [status pills scrollable] [🔍 icon btn]
+   ✅ .mobile-search-expand = 2nd row, slides down when open
+════════════════════════════════════════════════════════════ */
+.mobile-controls {
+  display: none;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .mobile-controls { display: flex; }
+}
+
+/* ── The single control row ── */
+.mobile-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;         /* ✅ Everything stays on ONE line */
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  /* Dark glass strip */
+  background: rgba(255,255,255,0.022);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 11px;
+  padding: 5px 7px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ── Hamburger genre button ── */
+.mobile-genre-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 9px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.80);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.mobile-genre-btn:active,
+.mobile-genre-btn--active {
+  background: rgba(0,229,255,0.08);
+  border-color: rgba(0,229,255,0.22);
+  color: #00e5ff;
+}
+
+.mobile-genre-btn__label {
+  max-width: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Active dot */
+.mobile-genre-btn__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00e5ff;
+  box-shadow: 0 0 5px #00e5ff;
+  flex-shrink: 0;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%       { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* ── Status pills strip — takes all remaining space, scrollable ── */
+.mobile-status-strip {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;           /* ✅ single line */
+  align-items: center;
+  gap: 3px;
+  /* ✅ flex: 1 takes all middle space */
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.mobile-status-strip::-webkit-scrollbar { display: none; }
+
+/* Status pills inside strip — smaller to fit in row */
+.mobile-status-strip .filter-pill--status {
+  padding: 4px 8px;
+  font-size: 9.5px;
+  min-height: 28px;
+  border-radius: 7px;
+}
+
+/* ── Search icon button — right end ── */
+.mobile-search-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.70);
+  cursor: pointer;
+  padding: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.mobile-search-btn:active,
+.mobile-search-btn--active {
+  background: rgba(0,229,255,0.08);
+  border-color: rgba(0,229,255,0.22);
+  color: #00e5ff;
+}
+
+/* ── Search expand row — slides in below the main row ── */
+.mobile-search-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+.mobile-search-expand--open {
+  grid-template-rows: 1fr;
+}
+
+/* Inner wrapper needed for grid-template-rows trick */
+.mobile-search-expand > * {
+  overflow: hidden;
+}
+
+/* But we want to add the search-field inside, so target it directly */
+.mobile-search-expand .search-field--mobile {
+  width: 100%;
+  /* Add a little top space when visible */
+  margin-top: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BOTTOM-SHEET GENRE DRAWER — mobile only
+════════════════════════════════════════════════════════════ */
+.drawer-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  z-index: 8800;
+  pointer-events: none;
+  transition: background 0.30s ease;
+}
+
+.drawer-backdrop--visible {
+  background: rgba(0,0,0,0.65);
+  pointer-events: all;
+}
+
+.genre-drawer {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* ✅ ~50% screen height — JioHotstar style */
+  max-height: 52vh;
+  min-height: 200px;
+  z-index: 8850;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(10,12,22,0.97) 0%, rgba(6,8,16,0.99) 100%);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.65);
+  transform: translateY(100%);
+  transition: transform 0.34s cubic-bezier(0.4,0,0.2,1);
+  flex-direction: column;
+}
+
+.genre-drawer--open {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .drawer-backdrop { display: block; }
+  .genre-drawer    { display: flex; }
+}
+
+.genre-drawer__handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.20);
+  margin: 10px auto 2px;
+  flex-shrink: 0;
+}
+
+.genre-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.052);
+}
+
+.genre-drawer__title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+}
+
+.genre-drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.60);
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.16s, color 0.16s;
+}
+
+.genre-drawer__close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* 2-column pill grid inside drawer */
+.genre-drawer__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 14px 14px;
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+}
+
+.genre-drawer__pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.58);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
+}
+
+.genre-drawer__pill:active { transform: scale(0.95); }
+
+.genre-drawer__pill:hover {
+  background: rgba(0,229,255,0.07);
+  border-color: rgba(0,229,255,0.18);
+  color: rgba(255,255,255,0.90);
+}
+
+.genre-drawer__pill--active {
+  background: #ffffff;
+  border-color: rgba(255,255,255,0.15);
+  color: #050608;
+  box-shadow: 0 0 14px rgba(255,255,255,0.11), 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.genre-drawer__pill--active:hover { background: #f0f7ff; color: #050608; }
+
+/* ════════════════════════════════════════════════════════════
+   GAME GRID
+════════════════════════════════════════════════════════════ */
+.game-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* Stagger reveal */
+.game-grid > article {
+  animation: cardReveal 0.40s ease both;
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.game-grid > article:nth-child(1)  { animation-delay: 0.04s; }
+.game-grid > article:nth-child(2)  { animation-delay: 0.08s; }
+.game-grid > article:nth-child(3)  { animation-delay: 0.12s; }
+.game-grid > article:nth-child(4)  { animation-delay: 0.16s; }
+.game-grid > article:nth-child(5)  { animation-delay: 0.20s; }
+.game-grid > article:nth-child(6)  { animation-delay: 0.24s; }
+.game-grid > article:nth-child(7)  { animation-delay: 0.28s; }
+.game-grid > article:nth-child(8)  { animation-delay: 0.32s; }
+.game-grid > article:nth-child(n+9) { animation-delay: 0.36s; }
+
+@media (max-width: 599px) {
+  .game-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .game-library-page { padding-top: 60px; }
+  .game-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .game-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .game-grid { grid-template-columns: repeat(4, 1fr); gap: 13px; }
+}
+
+@media (min-width: 900px) {
+  .game-grid { grid-template-columns: repeat(5, 1fr); gap: clamp(12px,1.4vw,20px); }
+}
+
+.game-grid__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 0;
+  color: rgba(255,255,255,0.20);
+  font-family: "Orbitron", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .game-grid > article,
+  .genre-drawer,
+  .drawer-backdrop,
+  .mobile-search-expand,
+  .filter-pill {
+    transition: none !important;
+    animation:  none !important;
+  }
+}

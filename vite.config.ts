@@ -7,4 +7,7 @@ export default defineConfig({
     remix({ ssr: false }),
     tsconfigPaths(),
   ],
+  server: {
+  host: true
+}
 });

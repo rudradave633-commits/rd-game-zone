@@ -1,202 +1,216 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "@remix-run/react";
+import { Link, useLocation, useNavigate } from "@remix-run/react";
+import { useEffect, useCallback, useState, useRef } from "react";
+import type React from "react";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const location   = useLocation();
+  const navigate   = useNavigate();
+  const isHome     = location.pathname === "/";
 
+  const [scrolled,   setScrolled]   = useState(!isHome);
+  const [menuOpen,   setMenuOpen]   = useState(false);
+  const [activeLink, setActiveLink] = useState("home");
+
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  /* ── Scroll background ── */
   useEffect(() => {
-    const checkStatus = () => {
-      const hour = new Date().getHours();
-      setIsOpen(hour >= 10 && hour < 22);
-    };
+    if (!isHome) { setScrolled(true); return; }
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
 
-    checkStatus();
-    const interval = setInterval(checkStatus, 60_000);
-    return () => clearInterval(interval);
+  /* ── Active section tracker ── */
+  useEffect(() => {
+    if (!isHome) return;
+    const sections = ["booking", "pricing", "about"];
+    const onScroll = () => {
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) { setActiveLink(id); return; }
+      }
+      setActiveLink("home");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+
+  /* ── Close menu on route change ── */
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
+  /* ── Body scroll lock when menu open ── */
+  useEffect(() => {
+    document.body.style.overflow    = menuOpen ? "hidden" : "";
+    document.body.style.touchAction = menuOpen ? "none"   : "";
+    return () => { document.body.style.overflow = ""; document.body.style.touchAction = ""; };
+  }, [menuOpen]);
+
+  /* ── Escape key closes menu ── */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  /* ─────────────────────────────────────────────────────────────
+     ✅ HASH SCROLL FIX
+     After navigating from another page to /#game-library (or any
+     hash), this effect waits for the page to mount, then smooth-
+     scrolls to the element with the nav-offset applied.
+  ───────────────────────────────────────────────────────────── */
+  useEffect(() => {
+    if (!isHome || !location.hash) return;
+    const id = location.hash.replace("#", "");
+
+    const scrollToEl = () => {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const navH = window.innerWidth >= 1600 ? 84 : window.innerWidth <= 768 ? 64 : 72;
+      const y = el.getBoundingClientRect().top + window.scrollY - navH;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      return true;
+    };
+
+    /* Try immediately, then retry after brief delay for hydration */
+    if (!scrollToEl()) {
+      const t = setTimeout(scrollToEl, 250);
+      return () => clearTimeout(t);
+    }
+  }, [isHome, location.hash]);
+
+  /* ── Smooth scroll to section on same page ── */
+  const scrollTo = useCallback((id: string) => {
+    setMenuOpen(false);
+    if (!isHome) { navigate(`/#${id}`); return; }
+    const el = document.getElementById(id);
+    if (!el) return;
+    const navH = window.innerWidth >= 1600 ? 84 : window.innerWidth <= 768 ? 64 : 72;
+    const y = el.getBoundingClientRect().top + window.scrollY - navH;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }, [isHome, navigate]);
+
+  /* ── PLAY NOW — scrolls to #game-library ── */
+  const goToGameLibrary = useCallback(() => {
+    setMenuOpen(false);
+    if (!isHome) {
+      /* Navigate to home with hash; the useEffect above handles scroll */
+      navigate("/#game-library");
+      return;
+    }
+    const el = document.getElementById("game-library");
+    if (!el) return;
+    const navH = window.innerWidth >= 1600 ? 84 : window.innerWidth <= 768 ? 64 : 72;
+    const y = el.getBoundingClientRect().top + window.scrollY - navH;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }, [isHome, navigate]);
+
   return (
-    <header className="rd-navbar">
-      <style>{`
-        .rd-navbar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 72px;
-          z-index: 100;
-          display: flex;
-          align-items: center;
-          padding: 0 32px;
-          background: rgba(8, 8, 10, 0.7);
-          backdrop-filter: blur(14px);
-          border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
+    <>
+      <header
+        className={`rdnav ${scrolled ? "rdnav--solid" : "rdnav--clear"}`}
+        role="banner"
+      >
+        <Link to="/" className="rdnav__brand" aria-label="RD Game Zone home">
+          <div className="rdnav__logo-box" aria-hidden="true">
+            <img src="/logo.svg" alt="" className="rdnav__logo-img" width="28" height="28" loading="eager" />
+            <div className="rdnav__logo-ring" />
+          </div>
+          <div className="rdnav__brand-text">
+            <span className="rdnav__brand-name">RD GAME ZONE</span>
+            <span className="rdnav__brand-tag">NO GAMER NO ENTRY</span>
+          </div>
+        </Link>
 
-        /* LEFT BRAND */
-        .rd-brand {
-          min-width: 220px;
-          line-height: 1.1;
-        }
+        <nav className="rdnav__center" aria-label="Main navigation">
+          <Link to="/" className={`rdnav__item ${activeLink === "home" && isHome ? "is-active" : ""}`}>Home</Link>
+          <button className={`rdnav__item ${activeLink === "about"   ? "is-active" : ""}`} onClick={() => scrollTo("about")}>About</button>
+          <button className={`rdnav__item ${activeLink === "pricing" ? "is-active" : ""}`} onClick={() => scrollTo("pricing")}>Pricing</button>
+          <button className={`rdnav__item ${activeLink === "booking" ? "is-active" : ""}`} onClick={() => scrollTo("booking")}>Booking</button>
+        </nav>
 
-        .rd-brand-title {
-          font-size: 18px;
-          font-weight: 900;
-          letter-spacing: 0.6px;
-          color: #ffffff;
-        }
+        <div className="rdnav__right">
+          {/* ✅ PLAY NOW — scrolls to #game-library, works from any page */}
+          <button
+            className="rdnav__cta"
+            onClick={goToGameLibrary}
+            aria-label="Play now — scroll to game library"
+          >
+            <span className="rdnav__cta-dot" aria-hidden="true" />
+            <span>PLAY NOW</span>
+          </button>
 
-        .rd-brand-sub {
-          font-size: 11px;
-          margin-top: 2px;
-          letter-spacing: 1.4px;
-          font-weight: 700;
-          text-transform: uppercase;
-          background: linear-gradient(90deg, #ff4d4d, #ffffff);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        /* CENTER NAV */
-        .rd-nav {
-          flex: 1;
-          display: flex;
-          justify-content: center;
-          gap: 32px;
-        }
-
-        /* NAV LINKS */
-        .rd-nav a {
-          position: relative;
-          text-decoration: none;
-          color: #cfd6ff;
-          font-size: 14px;
-          font-weight: 600;
-          padding: 6px 2px;
-          opacity: 0.8;
-          transition: opacity 0.25s ease, color 0.25s ease;
-        }
-
-        .rd-nav a:hover {
-          opacity: 1;
-          color: #ffffff;
-        }
-
-        /* PLAYSTATION STYLE UNDERLINE */
-        .rd-nav a::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          bottom: -6px;
-          width: 0%;
-          height: 2px;
-          background: linear-gradient(90deg, #00ffc3, #38bdf8);
-          transition: width 0.3s ease;
-        }
-
-        .rd-nav a:hover::after {
-          width: 100%;
-        }
-
-        .rd-nav a.active::after {
-          width: 100%;
-        }
-
-        /* RIGHT STATUS */
-        .rd-status {
-          min-width: 160px;
-          display: flex;
-          justify-content: flex-end;
-        }
-
-        .rd-status-pill {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 14px;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 0.8px;
-          text-transform: uppercase;
-          border-radius: 999px;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .rd-open {
-          color: #0b1f14;
-          background: rgba(0, 255, 127, 0.75);
-          box-shadow: 0 0 18px rgba(0,255,127,0.6);
-        }
-
-        .rd-open svg {
-          color: #0b1f14;
-        }
-
-        .rd-closed {
-          color: #2b0b0b;
-          background: rgba(255, 59, 59, 0.75);
-          box-shadow: 0 0 18px rgba(255,59,59,0.6);
-        }
-
-        .rd-closed svg {
-          color: #2b0b0b;
-        }
-       /* ✅ SAFE: NO LAYOUT CHANGE */
-@media (max-width: 900px) {
-  .rd-navbar {
-    padding: 0 20px;
-  }
-
-  .rd-nav {
-    gap: 22px;
-  }
-
-  .rd-brand-title {
-    font-size: 16px;
-  }
-
-  .rd-brand-sub {
-    font-size: 10px;
-  }
-}
-  @media (min-width: 2200px) {
-  .rd-navbar {
-    height: 84px;
-  }
-
-  .rd-nav a {
-    font-size: 16px;
-  }
-
-  .rd-status-pill {
-    font-size: 13px;
-  }
-}
-        
-      `}</style>
-
-      {/* LEFT */}
-      <div className="rd-brand">
-        <div className="rd-brand-title">RD GAME ZONE</div>
-        <div className="rd-brand-sub">NO GAMER NO ENTRY</div>
-      </div>
-
-      {/* CENTER */}
-      <nav className="rd-nav">
-        <NavLink to="/" end>Home</NavLink>
-       <a href="#about">About</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#booking">Booking</a>
-        <NavLink to="/games">Games</NavLink>
-      </nav>
-
-      {/* RIGHT */}
-      <div className="rd-status">
-        <div className={`rd-status-pill ${isOpen ? "rd-open" : "rd-closed"}`}>
-          {isOpen ? "SHOP OPEN" : "SHOP CLOSED"}
+          <button
+            className={`rdnav__burger ${menuOpen ? "is-open" : ""}`}
+            onClick={() => setMenuOpen(v => !v)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+          >
+            <span className="rdnav__burger-line" />
+            <span className="rdnav__burger-line" />
+            <span className="rdnav__burger-line" />
+          </button>
         </div>
+      </header>
+
+      {/* ── MOBILE MENU ── */}
+      <div
+        id="mobile-menu"
+        ref={menuRef}
+        className={`rdmenu ${menuOpen ? "rdmenu--open" : ""}`}
+        aria-hidden={!menuOpen}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+      >
+        <div className="rdmenu__atmosphere" aria-hidden="true" />
+        <div className="rdmenu__scanlines"  aria-hidden="true" />
+
+        <Link to="/" className="rdmenu__brand" onClick={() => setMenuOpen(false)} tabIndex={menuOpen ? 0 : -1}>
+          <div className="rdmenu__logo-box">
+            <img src="/logo.svg" alt="" width="36" height="36" />
+          </div>
+          <div>
+            <div className="rdmenu__brand-name">RD GAME ZONE</div>
+            <div className="rdmenu__brand-tag">NO GAMER NO ENTRY</div>
+          </div>
+        </Link>
+
+        <div className="rdmenu__divider" aria-hidden="true" />
+
+        {/* ✅ 5 nav items — same style, no separate highlighted CTA */}
+        <nav className="rdmenu__nav" aria-label="Mobile navigation">
+          {[
+            { label: "Home",     action: () => { setMenuOpen(false); navigate("/"); } },
+            { label: "About",    action: () => scrollTo("about")    },
+            { label: "Pricing",  action: () => scrollTo("pricing")  },
+            { label: "Booking",  action: () => scrollTo("booking")  },
+            { label: "Play Now", action: () => goToGameLibrary()     },
+          ].map((item, i) => (
+            <button
+              key={item.label}
+              className="rdmenu__nav-item"
+              style={{ "--i": i } as React.CSSProperties}
+              onClick={item.action}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              <span className="rdmenu__nav-num">0{i + 1}</span>
+              <span className="rdmenu__nav-label">{item.label}</span>
+              <span className="rdmenu__nav-arrow" aria-hidden="true">→</span>
+            </button>
+          ))}
+        </nav>
+
+        <p className="rdmenu__footer-note">Ahmedabad's #1 Gaming Cafe</p>
       </div>
-    </header>
+
+      {menuOpen && (
+        <div className="rdmenu__backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+      )}
+    </>
   );
 }
