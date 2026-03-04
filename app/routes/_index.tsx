@@ -12,7 +12,7 @@ import Footer from "~/components/Footer";
 
 /* Page-level meta override (root.tsx handles the main SEO) */
 export const meta: MetaFunction = () => [
-  { title: "RD Game Zone | #1 Gaming Cafe in Ahmedabad – PS5, PC & LAN Gaming" },
+  { title: "RD Game Zone | The Ultimate Gaming Experience" },
 ];
 
 export default function Home() {
